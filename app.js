@@ -26,7 +26,7 @@
   let client = null;
   if (hasConfig && library && typeof library.createClient === 'function') {
     client = library.createClient(cfg.supabaseUrl, cfg.supabaseAnonKey, { auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true } });
-    show('Supabase browser configuration loaded. Sign-in also requires the profiles table and secure access policies.', 'notice');
+    show('', 'notice');
   }
   if (form) form.addEventListener('submit', async function (event) {
     event.preventDefault();
