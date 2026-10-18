@@ -1,7 +1,4 @@
-/* Browser-safe Supabase settings for the NEW Aurevale project only.
-   Add the Project URL and publishable (or legacy anon) key from Supabase.
-   NEVER put a service_role or secret key in this file or in GitHub. */
 window.AUREVALE_CONFIG = {
-  supabaseUrl: "",
-  supabaseAnonKey: ""
+  supabaseUrl: "https://qzigfgootcomlbiqeref.supabase.co",
+  supabaseAnonKey: "sb_publishable_XHDXWyhpJhIRpE8cdbbXtQ_PTzf398J"
 };
