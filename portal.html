@@ -104,6 +104,7 @@
       box-shadow: 0 22px 70px rgba(36, 72, 61, 0.08);
       position: relative;
       z-index: 2;
+      border-radius: 12px;
     }
 
     .signin-kicker {
@@ -153,6 +154,7 @@
       font: inherit;
       font-weight: 400;
       outline: none;
+      border-radius: 7px;
     }
 
     .field input:focus {
@@ -191,6 +193,8 @@
       font-size: 14px;
       font-weight: 600;
       cursor: pointer;
+      border-radius: 7px;
+      justify-content: center;
     }
 
     .portal-submit:hover {
@@ -435,12 +439,11 @@
             >
           </label>
 
-          <button class="portal-submit" type="submit">
-            <span>Sign in</span>
-            <span aria-hidden="true">↗</span>
+          <button class="portal-submit" type="submit">  
+            Sign in
           </button>
 
-          <div class="form-message notice" id="form-message" role="status" aria-live="polite"></div>
+          <div class="form-message" id="form-message" role="status" aria-live="polite"></div>
         </form>
       </section>
     </main>
