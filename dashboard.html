@@ -1,1 +1,117 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#24483D"><meta name="robots" content="noindex,nofollow"><title>Management Portal | Aurevale Clinic</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="styles.css"></head><body class="dashboard-body"><header class="dashboard-header"><a class="brand" href="index.html"><span class="brand-mark">A</span><span class="brand-copy"><strong>Aurevale</strong><small>CLINIC · TEAM</small></span></a><button id="signout-button" type="button">Sign out</button></header><main class="dashboard-main"><div class="dashboard-welcome"><div><div class="section-kicker">STAFF WORKSPACE</div><h1>Welcome, <em id="staff-name">team member.</em></h1><p>Your coordinated clinic workspace, designed around safer and clearer workflows.</p></div><span class="role-chip" id="staff-role">Checking access…</span></div><div class="setup-banner" id="dashboard-message" role="status">Checking your staff session…</div><div class="dashboard-cards"><article class="dashboard-card"><span>01 · FRONT DESK</span><h2>Appointments</h2><p>Booking, check-in and daily schedules.</p></article><article class="dashboard-card"><span>02 · PATIENT CARE</span><h2>Patient records</h2><p>Access-controlled patient history and care notes.</p></article><article class="dashboard-card"><span>03 · CLINICAL TEAM</span><h2>Doctors & services</h2><p>Staff assignments, specialties and availability.</p></article></div><section class="dashboard-placeholder"><h2>Secure setup comes first.</h2><p>This is the dashboard shell, not a live clinical system. Before displaying real records, the new Supabase database must have a reviewed schema, Row Level Security and role-based access policies. Until that is tested, no patient information is stored or shown here.</p><ul><li>Administrator: staff, doctors, departments and reporting.</li><li>Reception: patient registration, appointments and check-in.</li><li>Doctor: assigned patient visits, histories and clinical notes.</li></ul></section></main><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="config.js"></script><script src="app.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#24483D">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Management Portal | Aurevale Clinic</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="dashboard-body">
+  <header class="dashboard-header">
+    <a class="brand" href="portal.html">
+      <span class="brand-mark">A</span>
+      <span class="brand-copy">
+        <strong>Aurevale</strong>
+        <small>CLINIC · TEAM</small>
+      </span>
+    </a>
+
+    <button id="signout-button" type="button">Sign out</button>
+  </header>
+
+  <main class="dashboard-main">
+    <div class="dashboard-welcome">
+      <div>
+        <div class="section-kicker">STAFF WORKSPACE</div>
+        <h1>Welcome, <em id="staff-name">team member.</em></h1>
+        <p>Your coordinated clinic workspace.</p>
+      </div>
+
+      <span class="role-chip" id="staff-role">Checking access…</span>
+    </div>
+
+    <div class="setup-banner" id="dashboard-message" role="status">
+      Checking your staff session…
+    </div>
+
+    <nav class="dashboard-nav" aria-label="Management sections">
+      <a class="dashboard-nav-item active" href="#overview">Overview</a>
+      <a class="dashboard-nav-item" href="#staff-management">Staff management</a>
+      <a class="dashboard-nav-item" href="#patients">Patients</a>
+      <a class="dashboard-nav-item" href="#appointments">Appointments</a>
+      <a class="dashboard-nav-item" href="#clinical">Clinical services</a>
+    </nav>
+
+    <section id="overview" class="dashboard-cards">
+      <article class="dashboard-card">
+        <span>01 · TEAM</span>
+        <h2>Staff management</h2>
+        <p>Manage staff profiles and clinic roles.</p>
+        <a href="#staff-management">Open staff section →</a>
+      </article>
+
+      <article class="dashboard-card">
+        <span>02 · FRONT DESK</span>
+        <h2>Patient registration</h2>
+        <p>Register patients using their existing ID.</p>
+        <span class="feature-status">Not connected yet</span>
+      </article>
+
+      <article class="dashboard-card">
+        <span>03 · SCHEDULING</span>
+        <h2>Appointments</h2>
+        <p>Manage bookings and daily clinic queues.</p>
+        <span class="feature-status">Not connected yet</span>
+      </article>
+    </section>
+
+    <section id="staff-management" class="dashboard-placeholder">
+      <div class="section-kicker">ADMINISTRATOR AREA</div>
+      <h2>Staff management</h2>
+      <p>
+        This section will let an authorized administrator add staff,
+        assign their clinic role, and manage their staff number.
+      </p>
+
+      <div class="staff-role-list">
+        <div><strong>Doctor</strong><span>DOC-001, DOC-002…</span></div>
+        <div><strong>Receptionist</strong><span>REC-001, REC-002…</span></div>
+        <div><strong>Nurse</strong><span>NUR-001, NUR-002…</span></div>
+        <div><strong>Pharmacist</strong><span>PHA-001, PHA-002…</span></div>
+      </div>
+
+      <p class="staff-note">
+        These are example number formats only. Staff records and secure
+        login creation have not been connected yet.
+      </p>
+    </section>
+
+    <section id="patients" class="dashboard-placeholder">
+      <h2>Patient registration</h2>
+      <p>Coming later: enter a patient's existing ID and details, then save their record securely.</p>
+    </section>
+
+    <section id="appointments" class="dashboard-placeholder">
+      <h2>Appointments</h2>
+      <p>Coming later: book appointments and generate visit or queue numbers.</p>
+    </section>
+
+    <section id="clinical" class="dashboard-placeholder">
+      <h2>Clinical services</h2>
+      <p>Coming later: role-appropriate clinical and pharmacy workflows.</p>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
