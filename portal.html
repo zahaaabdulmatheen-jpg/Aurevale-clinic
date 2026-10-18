@@ -1,1 +1,457 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#24483D"><meta name="robots" content="noindex,nofollow"><title>Staff Portal | Aurevale Clinic</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="styles.css"></head><body class="portal-body"><header class="portal-top"><a class="brand" href="index.html"><span class="brand-mark">A</span><span class="brand-copy"><strong>Aurevale</strong><small>CLINIC</small></span></a><a href="index.html">← Back to website</a></header><main class="portal-shell"><section class="portal-story"><div class="section-kicker">AUREVALE · TEAM ACCESS</div><h1>Care works<br>better when<br>we work <em>together.</em></h1><p>A dedicated workspace for the people behind every patient experience. Sign-in is connected to Aurevale's own Supabase project once its credentials and access rules are configured.</p><div class="portal-points"><span>Reception</span><span>Clinicians</span><span>Administration</span></div></section><section class="portal-form-wrap"><form class="portal-form" id="login-form"><p class="eyebrow"><span></span> SECURE TEAM ACCESS</p><h2>Welcome back.</h2><p class="subtext">Sign in with your clinic staff account.</p><label class="field">Work email<input id="email" name="email" type="email" autocomplete="username" placeholder="you@clinic.com" required></label><label class="field"><span class="password-row"><span>Password</span><button type="button" id="toggle-password">Show</button></span><input id="password" name="password" type="password" autocomplete="current-password" placeholder="Enter your password" required minlength="8"></label><button class="button button-green portal-submit" type="submit">Continue securely <span>↗</span></button><div class="form-message notice show" id="form-message" role="status">Setup pending: add the new Aurevale Supabase Project URL and publishable anon key before staff sign-in can work.</div><div class="portal-divider"></div><p class="portal-help">Access is for authorized clinic staff only. Accounts and permissions must be managed by an administrator. Do not enter real passwords until the secure connection is configured.</p><a class="portal-back" href="index.html">← Return to Aurevale Clinic</a></form></section></main><footer class="portal-footer">Aurevale Clinic · Staff workspace preview · Authentication setup pending</footer><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="config.js"></script><script src="app.js"></script></body></html>
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F7F4EC">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Staff Sign In | Aurevale Clinic</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    :root {
+      --aurevale-green: #24483D;
+      --aurevale-ivory: #F7F4EC;
+      --aurevale-gold: #C5A66D;
+      --aurevale-muted: #718078;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body.portal-body {
+      min-height: 100vh;
+      margin: 0;
+      background: var(--aurevale-ivory);
+      color: var(--aurevale-green);
+      font-family: "DM Sans", sans-serif;
+      overflow-x: hidden;
+    }
+
+    .signin-page {
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+    }
+
+    .signin-header {
+      position: relative;
+      z-index: 2;
+      padding: 28px clamp(24px, 6vw, 88px);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 13px;
+      color: var(--aurevale-green);
+      text-decoration: none;
+    }
+
+    .brand-mark {
+      width: 49px;
+      height: 49px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--aurevale-gold);
+      color: var(--aurevale-gold);
+      font-family: "Playfair Display", serif;
+      font-size: 29px;
+    }
+
+    .brand-copy {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+    }
+
+    .brand-copy strong {
+      font-family: "Playfair Display", serif;
+      font-size: 29px;
+      font-weight: 500;
+      letter-spacing: -1px;
+    }
+
+    .brand-copy small {
+      margin-top: 7px;
+      font-size: 10px;
+      letter-spacing: 3px;
+    }
+
+    .signin-main {
+      display: grid;
+      place-items: center;
+      padding: 35px 24px 70px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .signin-card {
+      width: min(100%, 420px);
+      padding: clamp(28px, 5vw, 45px);
+      background: rgba(255, 254, 250, 0.94);
+      border: 1px solid rgba(36, 72, 61, 0.12);
+      box-shadow: 0 22px 70px rgba(36, 72, 61, 0.08);
+      position: relative;
+      z-index: 2;
+    }
+
+    .signin-kicker {
+      margin: 0 0 16px;
+      color: var(--aurevale-muted);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+    }
+
+    .signin-card h1 {
+      margin: 0;
+      font-family: "Playfair Display", serif;
+      font-size: clamp(34px, 5vw, 43px);
+      font-weight: 500;
+      letter-spacing: -1px;
+    }
+
+    .signin-subtitle {
+      margin: 12px 0 29px;
+      color: var(--aurevale-muted);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .portal-form {
+      display: grid;
+      gap: 18px;
+    }
+
+    .field {
+      display: grid;
+      gap: 8px;
+      color: var(--aurevale-green);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .field input {
+      width: 100%;
+      min-height: 49px;
+      padding: 12px 14px;
+      border: 1px solid #D8D8CE;
+      border-radius: 0;
+      background: #fff;
+      color: var(--aurevale-green);
+      font: inherit;
+      font-weight: 400;
+      outline: none;
+    }
+
+    .field input:focus {
+      border-color: var(--aurevale-green);
+      box-shadow: 0 0 0 3px rgba(36, 72, 61, 0.09);
+    }
+
+    .password-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    #toggle-password {
+      padding: 0;
+      border: 0;
+      background: none;
+      color: var(--aurevale-green);
+      font: inherit;
+      font-size: 12px;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    .portal-submit {
+      min-height: 51px;
+      margin-top: 4px;
+      padding: 13px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 0;
+      background: var(--aurevale-green);
+      color: white;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .portal-submit:hover {
+      background: #19382F;
+    }
+
+    .form-message {
+      display: none;
+      margin: 0;
+      padding: 12px 13px;
+      border: 1px solid #D8D8CE;
+      color: #5F6F66;
+      font-size: 12px;
+      line-height: 1.6;
+      overflow-wrap: anywhere;
+    }
+
+    .form-message.show {
+      display: block;
+    }
+
+    .portal-footer {
+      position: relative;
+      z-index: 2;
+      padding: 18px 24px 24px;
+      color: #7B857D;
+      text-align: center;
+      font-size: 11px;
+      letter-spacing: 0.3px;
+    }
+
+    /* Quiet decorative backdrop: arch, plant pot and counter */
+    .botanical-backdrop {
+      position: absolute;
+      z-index: 0;
+      width: min(53vw, 690px);
+      height: min(63vw, 600px);
+      right: -4vw;
+      bottom: 5%;
+      opacity: 0.72;
+      pointer-events: none;
+    }
+
+    .backdrop-panel {
+      position: absolute;
+      inset: 8% 8% 0 12%;
+      background: #E8E0D0;
+    }
+
+    .backdrop-sun {
+      position: absolute;
+      width: 32%;
+      aspect-ratio: 1;
+      right: 17%;
+      top: 16%;
+      border-radius: 50%;
+      background: #D9C391;
+    }
+
+    .backdrop-arch {
+      position: absolute;
+      width: 57%;
+      height: 66%;
+      left: 22%;
+      bottom: 12%;
+      border: clamp(22px, 3vw, 42px) solid #C7BA9C;
+      border-bottom: 0;
+      border-radius: 50% 50% 0 0;
+    }
+
+    .backdrop-counter {
+      position: absolute;
+      left: 14%;
+      right: 9%;
+      bottom: 10%;
+      height: 13%;
+      border-radius: 50% 50% 0 0 / 35% 35% 0 0;
+      background: #F6F0E3;
+      box-shadow: 0 18px 0 8px #C8B99D;
+    }
+
+    .backdrop-vase {
+      position: absolute;
+      width: 12%;
+      height: 20%;
+      right: 32%;
+      bottom: 28%;
+      border-radius: 30% 30% 42% 42%;
+      background: #BCA783;
+    }
+
+    .backdrop-vase::before,
+    .backdrop-vase::after {
+      content: "";
+      position: absolute;
+      width: 2px;
+      height: 65%;
+      left: 50%;
+      bottom: 85%;
+      background: #6E846C;
+      transform-origin: bottom;
+    }
+
+    .backdrop-vase::before {
+      transform: rotate(-18deg);
+    }
+
+    .backdrop-vase::after {
+      transform: rotate(22deg);
+    }
+
+    .backdrop-plant {
+      position: absolute;
+      left: 18%;
+      bottom: 23%;
+      width: 23%;
+      height: 35%;
+    }
+
+    .leaf {
+      position: absolute;
+      bottom: 23%;
+      left: 42%;
+      width: 27%;
+      height: 75%;
+      border-radius: 100% 0 100% 0;
+      background: #7D9278;
+      transform-origin: bottom;
+    }
+
+    .leaf-one { transform: rotate(-42deg); }
+    .leaf-two { transform: rotate(-13deg); height: 90%; }
+    .leaf-three { transform: rotate(29deg); height: 70%; }
+    .leaf-four { transform: rotate(55deg); height: 58%; }
+
+    .plant-pot {
+      position: absolute;
+      left: 25%;
+      bottom: 0;
+      width: 53%;
+      height: 26%;
+      background: #A7835F;
+      border-radius: 3px 3px 13px 13px;
+    }
+
+    @media (max-width: 700px) {
+      .signin-header {
+        padding: 22px 22px;
+      }
+
+      .brand-mark {
+        width: 42px;
+        height: 42px;
+        font-size: 25px;
+      }
+
+      .brand-copy strong {
+        font-size: 25px;
+      }
+
+      .signin-main {
+        padding: 25px 18px 55px;
+      }
+
+      .signin-card {
+        padding: 29px 24px;
+      }
+
+      .botanical-backdrop {
+        width: 95vw;
+        height: 105vw;
+        right: -38vw;
+        bottom: 0;
+        opacity: 0.28;
+      }
+
+      .portal-footer {
+        padding-bottom: 18px;
+      }
+    }
+  </style>
+</head>
+
+<body class="portal-body">
+  <div class="signin-page">
+    <header class="signin-header">
+      <a class="brand" href="portal.html" aria-label="Aurevale Clinic staff sign in">
+        <span class="brand-mark">A</span>
+        <span class="brand-copy">
+          <strong>Aurevale</strong>
+          <small>CLINIC</small>
+        </span>
+      </a>
+    </header>
+
+    <div class="botanical-backdrop" aria-hidden="true">
+      <div class="backdrop-panel"></div>
+      <div class="backdrop-sun"></div>
+      <div class="backdrop-arch"></div>
+      <div class="backdrop-counter"></div>
+      <div class="backdrop-vase"></div>
+      <div class="backdrop-plant">
+        <span class="leaf leaf-one"></span>
+        <span class="leaf leaf-two"></span>
+        <span class="leaf leaf-three"></span>
+        <span class="leaf leaf-four"></span>
+        <span class="plant-pot"></span>
+      </div>
+    </div>
+
+    <main class="signin-main">
+      <section class="signin-card" aria-labelledby="signin-title">
+        <p class="signin-kicker">AUREVALE · STAFF PORTAL</p>
+        <h1 id="signin-title">Welcome back.</h1>
+        <p class="signin-subtitle">Sign in to your clinic workspace.</p>
+
+        <form class="portal-form" id="login-form">
+          <label class="field" for="email">
+            Work email
+            <input
+              id="email"
+              name="email"
+              type="email"
+              autocomplete="username"
+              placeholder="you@clinic.com"
+              required
+            >
+          </label>
+
+          <label class="field" for="password">
+            <span class="password-row">
+              <span>Password</span>
+              <button type="button" id="toggle-password">Show</button>
+            </span>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              autocomplete="current-password"
+              placeholder="Enter your password"
+              required
+            >
+          </label>
+
+          <button class="portal-submit" type="submit">
+            <span>Sign in</span>
+            <span aria-hidden="true">↗</span>
+          </button>
+
+          <div class="form-message notice" id="form-message" role="status" aria-live="polite"></div>
+        </form>
+      </section>
+    </main>
+
+    <footer class="portal-footer">
+      Aurevale Clinic · Authorized staff access
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
